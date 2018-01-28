@@ -35,3 +35,6 @@ libraryDependencies ++= Seq(
 javaOptions in Test += "-Dconfig.file=conf/application.test.conf"
 
 sourceDirectories in (Compile, TwirlKeys.compileTemplates) := (unmanagedSourceDirectories in Compile).value
+
+import com.typesafe.sbt.packager.MappingsHelper._
+mappings in Universal ++= directory(baseDirectory.value / "public")
