@@ -11,3 +11,18 @@
 #      description: User already signed up
 ###
 POST   /signUp                   controllers.HomeController.signUp
+
+###
+#  summary: Count all sign ups
+#  responses:
+#    200:
+#      description: success
+#      content:
+#        application/json:
+#          schema:
+#            type: object   # Data type
+#            properties: 
+#              count:
+#                type: integer
+###
+GET   /signUp                   controllers.HomeController.signUpCount

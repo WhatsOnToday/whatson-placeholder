@@ -15,6 +15,7 @@ import whatson.service._
 import whatson.db._
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
+import scala.util._
 
 
 /**
@@ -48,6 +49,7 @@ class HomeController @Inject()(cc: ControllerComponents,
    * @return The result to display.
    */
   def signUp = Action.async(parse.json) { implicit request =>
+    log.debug("Sign up request")
     UserSignUpForm.form.bindFromRequest.fold(
       form => {
         Future.successful(BadRequest(Json.toJson(form.errors)))
@@ -55,16 +57,29 @@ class HomeController @Inject()(cc: ControllerComponents,
       data => {
         val userInfo = User(None, data.email)
 
-        mailService.sendConfirmation(data.email)
-
         db.run(UserTable.user.filter(x => x.email === data.email).result).map(_.headOption).flatMap {
-          case Some(u) => Future.successful(BadRequest(Json.obj("message" -> "user.exists")))
+          case Some(u) => Future.successful(Conflict(Json.obj("message" -> "user.exists")))
           case None => {
             db.run(UserTable.user += (userInfo))
-            mailService.sendConfirmation(data.email)
-            Future.successful(Ok(Json.obj("message" -> "mail.sent")))
+              .flatMap(x => mailService.sendConfirmation(data.email)) transformWith {
+                case Success(_) => Future.successful(Ok(Json.obj("message" -> "mail.sent")))
+                case Failure(_) => {
+                  db.run(UserTable.user.filter(x => x.email === data.email).delete)
+                    .map(x => BadRequest(Json.obj("email" -> "error.email")))
+                }
+              }
           }
         }
       })
+  }
+
+  /**
+    * Returns the current count of sign ups
+    */
+  def signUpCount = Action.async { implicit request =>
+    log.debug("Sign up count request")
+    db.run(UserTable.user.length.result).map { x =>
+      Ok(Json.obj("count" -> x))
+    }
   }
 }
