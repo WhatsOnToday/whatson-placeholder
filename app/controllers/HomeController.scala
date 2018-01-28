@@ -67,4 +67,13 @@ class HomeController @Inject()(cc: ControllerComponents,
         }
       })
   }
+
+  /**
+    * Returns the current count of sign ups
+    */
+  def signUpCount = Action.async { implicit request =>
+    db.run(UserTable.user.length.result).map { x =>
+      Ok(Json.obj("count" -> x))
+    }
+  }
 }
