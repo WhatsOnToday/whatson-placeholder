@@ -49,6 +49,7 @@ class HomeController @Inject()(cc: ControllerComponents,
    * @return The result to display.
    */
   def signUp = Action.async(parse.json) { implicit request =>
+    log.debug("Sign up request")
     UserSignUpForm.form.bindFromRequest.fold(
       form => {
         Future.successful(BadRequest(Json.toJson(form.errors)))
@@ -76,6 +77,7 @@ class HomeController @Inject()(cc: ControllerComponents,
     * Returns the current count of sign ups
     */
   def signUpCount = Action.async { implicit request =>
+    log.debug("Sign up count request")
     db.run(UserTable.user.length.result).map { x =>
       Ok(Json.obj("count" -> x))
     }
