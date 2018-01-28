@@ -11,7 +11,7 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-input[type=submit] {
+button {
     background-color: #4cb471;
     color: white;
     padding: 14px 20px;
@@ -21,7 +21,7 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+button:hover {
     background-color: #53c462;
 }
 
@@ -38,6 +38,7 @@ input[type=submit]:hover {
 }
 
 .inner {
+    padding: 20px;
     margin-top: -10px;
     margin-left: auto;
     margin-right: auto; 
@@ -45,18 +46,37 @@ input[type=submit]:hover {
     text-align: center;
     color: #4cb471;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 28pt;
+    font-size: 27pt;
     background-color: rgba(100,100,100,0.7);
     border-radius: 9px;
 }
 
-.social{
-    color: #4cb471;
-}
-.social :hover {
-    color: yellow;
-}
 
 .logo {
-    height: 180px;
+    height: 200px;
+}
+
+a {
+    text-decoration: none;
+    color: #4cb471;
+}
+p > a:hover{
+    color: #d9d9d9;
+    text-decoration:  underline;
+}
+
+.social-icon {
+    color: #4cb471;
+}
+ul.social-icons {
+    margin-top: 10px;
+}
+.social-icons li {
+    vertical-align: top;
+    display: inline;
+    height: 100px;
+}
+.social-icons a {
+    color: #4cb471;
+    text-decoration: none;
 }

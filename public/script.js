@@ -1,5 +1,14 @@
-function onclick(){
-    fetch('./api/signUp')
+function bla(){
+
+    const value = document.getElementById('mail').value;
+    alert(value);
+
+    fetch('./api/signUp', {
+        method: "POST",
+        body: {
+
+        }
+    })
     .then(
         (response) => {
             if (response.status !== 200) {

@@ -8,29 +8,68 @@
     <body>
         <div class="outer">
             <div class="middle">
-              <div class="inner">
+                <div class="inner">
 
-                <img class="logo" src="./logo.svg">
-          
-                <h1>What's On tody</h1>
-          
-                <p>Finde dein nächtes Event!</p>
+                    <img class="logo" src="./assets/logo.svg">
+            
+                    <h1>What's On tody</h1>
+            
+                    <p>Finde dein nächtes Event!</p>
 
-                <form action="/action_page.php">
-                    <input type="text" name="firstname" placeholder="E-Mail-Adresse..">
-                    <input type="submit" value="Submit">
-                </form> 
-                
-                <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                <i class="fa fa-twitter-square" aria-hidden="true"></i>
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-
-          
-              </div>
+                    <form id="mail_form" onsubmit="return false">
+                        <input id="mail" type="text" name="email" placeholder="E-Mail-Adresse..">
+                        <button type="button" onclick="submitclick()">Ok</button>
+                    </form> 
+                            
+                    <ul class="social-icons">
+                        <li><a href="https://www.facebook.com/findyournextevent/" class="social-icon"> <i class="fa fa-facebook-square"></i></a></li>
+                        <li><a href="https://twitter.com/yournextevent" class="social-icon"> <i class="fa fa-twitter-square"></i></a></li>
+                        <li><a href="" class="https://www.instagram.com/findyournextevent/"> <i class="fa fa-instagram"></i></a></li>
+                        <li><a href="" class="social-icon"> <i class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
             </div>
-          </div>
+        </div>
+        <script>
+            function submitclick(){
 
-        <script src="script.js"></script>
+                const value = document.getElementById('mail').value.toString();
+                console.log(value);
+
+                fetch('./api/signUp', {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: value
+                    })
+                })
+                .then((response) => {
+                            switch(response.status){
+                                case 200:
+                                    window.location = "assets/success.html";
+                                break;
+                                case 400:
+                                    //Invalid mail adress
+                                    console.log(response.status)
+                                    return;
+                                break;
+                                case 409:
+                                console.log(response.status)
+                                    //mail already registered
+                                    return;
+                                break;
+                            }
+                    }
+                ).then((data) => {
+                    console.log(data)
+                })
+                .catch(function(err) {
+                    console.log('Fetch Error :-S', err);
+                });
+            }
+        </script>
     </body>
 </html>
