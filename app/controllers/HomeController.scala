@@ -11,13 +11,17 @@ import whatson.model.UserSignUpForm._
 import whatson.model._
 import play.api.libs.json._
 import whatson.util.FormErrorJson._
+import whatson.service._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents, protected val dbConfigProvider: DatabaseConfigProvider)(implicit context: ExecutionContext) extends AbstractController(cc)
+class HomeController @Inject()(cc: ControllerComponents,
+                               protected val dbConfigProvider: DatabaseConfigProvider,
+                               mailService: MailService)
+                            (implicit context: ExecutionContext) extends AbstractController(cc)
   with HasDatabaseConfigProvider[JdbcProfile] {
 
   val log = Logger("rest")
@@ -46,6 +50,8 @@ class HomeController @Inject()(cc: ControllerComponents, protected val dbConfigP
       },
       data => {
         val userInfo = User(None, data.email)
+
+        mailService.sendConfirmation(data.email)
 
         Future(Ok("yay"))
         /*loginService.retrieve(loginInfo).flatMap {

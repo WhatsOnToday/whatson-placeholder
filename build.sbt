@@ -5,7 +5,9 @@ version := "1.0-SNAPSHOT"
 
 scalaVersion in ThisBuild := "2.12.2"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala, SbtTwirl)
+lazy val root = (project in file(".")).enablePlugins(PlayScala, SbtTwirl, SwaggerPlugin)
+
+swaggerDomainNameSpaces := Seq("whatson.model")
 
 scalaVersion := "2.12.2"
 
@@ -20,7 +22,8 @@ libraryDependencies ++= Seq(
   ehcache,
   "com.iheart" %% "ficus" % "1.4.3",
   "com.typesafe.play" %% "play-mailer" % "6.0.1",
-  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
+  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1",
+  "org.webjars" % "swagger-ui" % "2.2.0"
 )
 
 // Adds additional packages into Twirl
