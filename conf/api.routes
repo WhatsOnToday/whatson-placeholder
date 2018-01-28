@@ -1,0 +1,13 @@
+###
+#  summary: Sign up for email notification
+#  parameters:
+#    - name: body
+#      schema:
+#        $ref: '#/definitions/whatson.model.UserSignUpForm.Data'
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: User already signed up
+###
+POST   /signUp                   controllers.HomeController.signUp
