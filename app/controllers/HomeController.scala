@@ -55,6 +55,8 @@ class HomeController @Inject()(cc: ControllerComponents,
       data => {
         val userInfo = User(None, data.email)
 
+        mailService.sendConfirmation(data.email)
+
         db.run(UserTable.user.filter(x => x.email === data.email).result).map(_.headOption).flatMap {
           case Some(u) => Future.successful(BadRequest(Json.obj("message" -> "user.exists")))
           case None => {
