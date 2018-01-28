@@ -1,5 +1,5 @@
 body{
-    background-image: url('./bg.jpg');
+    background-image: url('./bg_dark.jpg');
 }
 
 input[type=text], select {
@@ -9,6 +9,7 @@ input[type=text], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    width: 300px;
 }
 
 button {
@@ -42,13 +43,18 @@ button:hover {
     margin-top: -10px;
     margin-left: auto;
     margin-right: auto; 
-    width: 600px; /*whatever width you want*/
+    width: 65%; /*whatever width you want*/
     text-align: center;
     color: #4cb471;
     font-family: 'Ubuntu', sans-serif;
     font-size: 27pt;
-    background-color: rgba(100,100,100,0.7);
-    border-radius: 9px;
+
+    /* background-color: rgba(100,100,100,0.7);
+    border-radius: 13px; */
+}
+
+.inner > p {
+    font-size: 13pt;
 }
 
 
