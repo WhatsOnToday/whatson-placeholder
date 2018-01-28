@@ -70,6 +70,7 @@ p > a:hover{
 }
 ul.social-icons {
     margin-top: 10px;
+    padding: 0px;
 }
 .social-icons li {
     vertical-align: top;
@@ -79,4 +80,9 @@ ul.social-icons {
 .social-icons a {
     color: #4cb471;
     text-decoration: none;
+}
+.footer-social-icons {
+    width: 50%;
+    display:block;
+    margin: 0 auto;
 }
