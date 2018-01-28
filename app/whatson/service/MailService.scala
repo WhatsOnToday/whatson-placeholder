@@ -5,5 +5,5 @@ import whatson.model._
 import scala.concurrent.Future
 
 trait MailService {
-  def sendConfirmation(userMail: String): Unit
+  def sendConfirmation(userMail: String): Future[Unit]
 }

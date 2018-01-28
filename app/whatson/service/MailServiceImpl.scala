@@ -26,6 +26,8 @@ class MailServiceImpl @Inject()(mailerClient: MailerClient,
     )
 
     if(applicationConfig.confirmationMails)
-      mailerClient.send(email)
+      Future.successful(mailerClient.send(email))
+    else
+      Future.successful(())
   }
 }
