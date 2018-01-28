@@ -12,6 +12,10 @@ import whatson.model._
 import play.api.libs.json._
 import whatson.util.FormErrorJson._
 import whatson.service._
+import whatson.db._
+import slick.jdbc.JdbcProfile
+import slick.jdbc.PostgresProfile.api._
+
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -51,29 +55,14 @@ class HomeController @Inject()(cc: ControllerComponents,
       data => {
         val userInfo = User(None, data.email)
 
-        mailService.sendConfirmation(data.email)
-
-        Future(Ok("yay"))
-        /*loginService.retrieve(loginInfo).flatMap {
-          case Some(login) =>
-            Future.successful(BadRequest(Json.obj("message" -> "user.exists")))
-          case None =>
-            val authInfo = passwordHasher.hash(data.password)
-            val login = Login(None, data.email, None, None, None, loginInfo.providerID, loginInfo.providerKey, false)
-            for {
-              login <- loginService.save(login)
-              authInfo <- authInfoRepository.add(loginInfo, authInfo)
-              authenticator <- silhouette.env.authenticatorService.create(loginInfo)
-              token <- silhouette.env.authenticatorService.init(authenticator)
-              avatar <- avatarService.retrieveURL(data.email)
-            } yield {
-              silhouette.env.eventBus.publish(SignUpEvent(login, request))
-              silhouette.env.eventBus.publish(LoginEvent(login, request))
-              userService.save(login,avatar)
-              mailService.sendUserConfirmation(data.email,token)
-              Ok(Json.obj("message" -> "mail.sent"))
-            }
-        }*/
+        db.run(UserTable.user.filter(x => x.email === data.email).result).map(_.headOption).flatMap {
+          case Some(u) => Future.successful(BadRequest(Json.obj("message" -> "user.exists")))
+          case None => {
+            db.run(UserTable.user += (userInfo))
+            mailService.sendConfirmation(data.email)
+            Future.successful(Ok(Json.obj("message" -> "mail.sent")))
+          }
+        }
       })
   }
 }
