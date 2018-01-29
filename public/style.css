@@ -10,6 +10,7 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
     width: 300px;
+    box-shadow: 0px 0px 2px rgb(41, 41, 41);   
 }
 
 button {
@@ -20,6 +21,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0px 0px 2px rgb(41, 41, 41);   
 }
 
 button:hover {
@@ -48,6 +50,7 @@ button:hover {
     color: #4cb471;
     font-family: 'Ubuntu', sans-serif;
     font-size: 27pt;
+    text-shadow: 0px 0px 2px rgb(41, 41, 41);    
 
     /* background-color: rgba(100,100,100,0.7);
     border-radius: 13px; */
@@ -81,7 +84,6 @@ ul.social-icons {
 .social-icons li {
     vertical-align: top;
     display: inline;
-    height: 100px;
 }
 .social-icons a {
     color: #4cb471;
@@ -101,6 +103,7 @@ ul.social-icons {
     font-size: 12pt;
     display:inline-block;
     visibility: hidden;
+    box-shadow: 0px 0px 2px rgb(41, 41, 41);   
 }
 
 .closebtn {
