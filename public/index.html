@@ -23,6 +23,13 @@
                     <form id="mail_form" onsubmit="return false">
                         <input id="mail" type="text" name="email" placeholder="E-Mail-Adresse..">
                         <button type="button" onclick="submitclick()">Ok</button>
+                        
+                        <br>
+
+                        <div id="err" class="alert">
+                            <span class="closebtn" onclick="this.parentElement.style.visibility='hidden';">&times;</span> 
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;<span id="err_content">Indicates a dangerous or potentially negative action.</span>
+                        </div>
                     </form> 
                     
                     <div class="footer-social-icons">
@@ -40,7 +47,7 @@
             function submitclick(){
 
                 const value = document.getElementById('mail').value.toString();
-                console.log(value);
+                //console.log(value);
 
                 fetch('./api/signUp', {
                     method: "POST",
@@ -59,21 +66,25 @@
                                 break;
                                 case 400:
                                     //Invalid mail adress
-                                    console.log(response.status)
+                                    //console.log(response.status)
+                                    document.getElementById("err_content").innerHTML = "Bitte gib eine richtige E-Mail adresse ein!";
+                                    document.getElementById("err").style.visibility = "visible"; 
                                     return;
                                 break;
                                 case 409:
                                 console.log(response.status)
                                     //mail already registered
+                                    //console.log(response.status)
+                                    document.getElementById("err_content").innerHTML = "Diese E-Mail Adresse ist schon registriert!";
+                                    document.getElementById("err").style.visibility = "visible"; 
                                     return;
                                 break;
                             }
                     }
-                ).then((data) => {
-                    console.log(data)
-                })
-                .catch(function(err) {
-                    console.log('Fetch Error :-S', err);
+                ).catch(function(err) {
+                    //console.log('Fetch Error :-S', err);
+                    document.getElementById("err_content").innerHTML = "Uuuups! Es ist ein Fehler aufgetreten! Bitte versuche es später noch einmal!";
+                    document.getElementById("err").style.visibility = "visible"; 
                 });
             }
         </script>

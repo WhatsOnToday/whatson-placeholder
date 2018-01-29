@@ -92,3 +92,27 @@ ul.social-icons {
     display:block;
     margin: 0 auto;
 }
+
+.alert {
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #c25a53;
+    color: white;
+    font-size: 12pt;
+    display:inline-block;
+    visibility: hidden;
+}
+
+.closebtn {
+    margin-left: 13px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: gray;
+}
