@@ -19,7 +19,7 @@ class MailServiceImpl @Inject()(mailerClient: MailerClient,
 
   def sendConfirmation(userMail: String) = {
     val email = Email(
-      "Confirm your email address",
+      "Anmeldebestätigung",
       "Whats On <no-reply@whats-on.today>",
       Seq(userMail),
       bodyHtml = Some(new UserConfirmation(userMail,applicationConfig.url)().toString())
