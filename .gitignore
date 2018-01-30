@@ -1,7 +1,7 @@
 logs
 .vscode
 secrets.sh
- 
+conf/production.conf 
  
 ### Node ###
 # Logs
